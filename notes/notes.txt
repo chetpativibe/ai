@@ -1,0 +1,141 @@
+mkdir myproject
+cd myproject
+python3 -m venv .venv
+source .venv/bin/activate
+pip install llama-index
+
+
+uv init                 # Initialize project and create pyproject.toml
+uv venv                 # Create virtual environment (.venv)
+uv add llama-index      # Add dependency
+uv sync                # Synchronize dependencies with uv.lock
+uv run main.py          # Sync if needed and run application
+
+
+Python Entry Point: __name__
+
+1. Run directly:
+   __name__ becomes "__main__".
+
+2. Imported:
+   __name__ becomes the module name (filename without .py).
+
+Example:
+
+File: hello.py
+----------------------
+def main():
+    print("Hello")
+    print(__name__)
+
+if __name__ == "__main__":
+    main()
+
+
+Command:
+    uv run hello.py
+
+Output:
+    Hello
+    __main__
+
+
+File: test.py
+----------------------
+import hello
+
+print(hello.__name__)
+
+
+Command:
+    uv run test.py
+
+Output:
+    hello
+
+
+def add(a: int, b: int) -> int: return a + b
+def greet(name: str) -> str: return f"Hello {name}"
+
+print("Hello")
+print(f"Age: {age}")
+
+Python Imports: import, from, as
+
+File: xyz.py
+----------------------
+def hello():
+    print("Hello")
+
+def goodbye():
+    print("Goodbye")
+
+
+1. Import entire module
+----------------------
+import xyz
+
+xyz.hello()
+
+Output:
+Hello
+
+
+2. Import module with alias
+----------------------
+import xyz as blah
+
+blah.hello()
+
+Output:
+Hello
+
+
+3. Import specific function
+----------------------
+from xyz import hello
+
+hello()
+
+Output:
+Hello
+
+
+4. Import specific function with alias
+----------------------
+from xyz import hello as greet
+
+greet()
+
+Output:
+Hello
+
+
+5. Import multiple functions
+----------------------
+from xyz import hello, goodbye
+
+hello()
+goodbye()
+
+Output:
+Hello
+Goodbye
+
+
+Summary:
+----------------------
+import xyz                  -> xyz.hello()
+import xyz as blah          -> blah.hello()
+from xyz import hello       -> hello()
+from xyz import hello as hi -> hi()
+from xyz import hello, goodbye -> hello(), goodbye()
+
+Command to run:
+uv run main.py
+
+
+1. __init__.py marks a directory as a Python package.
+2. It can be empty.
+3. It executes when the package is imported.
+4. Not mandatory in Python 3.3+ due to namespace packages.
